@@ -27,4 +27,4 @@
 1. **Clona el repositorio:**
 
    ```bash
-   git clone https://github.com/tGabriMadon/auto-clean-pro.git
+   git clone https://github.com/GabriMadon/auto-clean-pro.git
