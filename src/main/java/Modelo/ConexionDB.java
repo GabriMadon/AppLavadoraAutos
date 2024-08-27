@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Controlador.ClienteDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +22,8 @@ public class ConexionDB {
     private static final String PASSWORD = "password123";
     
     //METODOS
-    public Connection getConnection(){
+    //Connection DB
+    public static Connection getConnection(){
         Connection connection = null;
         try{
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -33,10 +35,16 @@ public class ConexionDB {
         return connection;
     }
     
+   
+    
     //Main para probar conexio DB
      public static void main(String[] args) {
         ConexionDB db = new ConexionDB();
         Connection conn = db.getConnection();
+        ClienteDAO clienteDao = new ClienteDAO();
+        clienteDao.SelectClientes();
+        
+      
         if (conn != null) {
             try {
                 conn.close();
@@ -46,4 +54,5 @@ public class ConexionDB {
             }
         }
     }
+     
 }

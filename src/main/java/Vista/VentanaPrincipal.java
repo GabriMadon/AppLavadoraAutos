@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import Controlador.ClienteDAO;
+import Modelo.Cliente;
+import Modelo.Servicio;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -13,14 +16,22 @@ import javax.swing.JOptionPane;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private ClienteDAO clienteDAO;
+    private Servicio servicio;
+
+
     /**
      * Creates new form VentanaPrincipal
+     * @param clienteDAO
+     * @param servicio
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(ClienteDAO clienteDAO, Servicio servicio) {
+        this.clienteDAO = clienteDAO;
+        this.servicio = servicio;
+        
         initComponents();
+        
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,11 +309,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -382,22 +394,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited
         // TODO add your handling code here:
-        btnCancelar.setBackground(new Color(153,153,153));
+        btnCancelar.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_btnCancelarMouseExited
 
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
         // TODO add your handling code here:
         btnCancelar.setBackground(Color.GRAY);
     }//GEN-LAST:event_btnCancelarMouseEntered
-
+    //btn GUARDAR - INSERT EN TABLA CLIENTE
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String cedula =  txtCedula.getText();
+        String celular =  txtCelular.getText();
+        String direccion = txtDireccion.getText();
+        String marcaVehiculo = txtMarcaVehiculo.getText();
+        String modeloVehiculo = txtModeloVehiculo.getText();
+        int anioVehiculo =  Integer.parseInt(txtAnioVehiculo.getText());
+        String servicioAdquirido = (String) cmbServicioAdquirido.getSelectedItem();
+        String detalle = txtDetalles.getText();
+        
+        //Instancia objeto Cliente con los datos obtenidos del form
+        Cliente cliente = new Cliente(nombre, apellido, cedula, celular, direccion, marcaVehiculo, modeloVehiculo, anioVehiculo);
+        Servicio servicio = new Servicio(servicioAdquirido, detalle);
+        
+        clienteDAO.insertarDatos(cliente, servicio);
         JOptionPane.showMessageDialog(this, "Datos Gurdados.");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
         // TODO add your handling code here:
-        btnGuardar.setBackground(new Color(153,153,153));
+        btnGuardar.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
@@ -406,12 +434,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarMouseEntered
 
     //Vista Ventana Principal
-   
-    
     /**
      * @param args the command line arguments
      */
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -444,6 +469,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtModeloVehiculo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-
 
 }
