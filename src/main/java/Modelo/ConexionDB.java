@@ -19,7 +19,7 @@ public class ConexionDB {
     //statci variable de instancia // final = constante
     private static final String URL ="jdbc:mysql://localhost:3306/db_lavadora_autos";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "password123";
     
     //METODOS
     //Connection DB

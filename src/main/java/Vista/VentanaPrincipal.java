@@ -32,6 +32,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         
     }
+    
+    //METODO LIMPIAR PANTALLA 
+    public void limpiarPantalla() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCedula.setText("");
+        txtCelular.setText("");
+        txtDireccion.setText("");
+        txtMarcaVehiculo.setText("");
+        txtModeloVehiculo.setText("");
+        txtAnioVehiculo.setText("");
+        cmbServicioAdquirido.setSelectedIndex(0);
+        txtDetalles.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +85,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        btnCargarDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,10 +243,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel15.setOpaque(true);
 
+        btnCargarDatos.setBackground(new java.awt.Color(102, 102, 102));
+        btnCargarDatos.setFont(new java.awt.Font("Hack Nerd Font Propo", 0, 14)); // NOI18N
+        btnCargarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCargarDatos.setText("Clientes");
+        btnCargarDatos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(296, 296, 296))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,12 +271,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(168, 168, 168)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -281,22 +306,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(111, 111, 111)
                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cmbServicioAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(65, 65, 65)
+                                    .addComponent(cmbServicioAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(135, 135, 135)
+                                .addComponent(btnCargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(68, 68, 68)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(190, 190, 190)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(296, 296, 296))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,55 +378,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addComponent(btnCargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Metodos eventos btnGuardar btnCancelar Hover
+    //METODOS EVENTOS BOTONES
+    //METODO CANCELAR
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        //LIMPIAR FORMULARIO AL CANCELAR
-        txtNombre.setText("");
-        txtApellido.setText("");
-        txtCedula.setText("");
-        txtCelular.setText("");
-        txtDireccion.setText("");
-        txtMarcaVehiculo.setText("");
-        txtModeloVehiculo.setText("");
-        txtAnioVehiculo.setText("");
-        cmbServicioAdquirido.setSelectedIndex(0);
-        txtDetalles.setText("");
+        //METODO LIMPIAR FORMULARIO AL CANCELAR  
+        limpiarPantalla();
         //MENSAJE CANCELAD
         JOptionPane.showMessageDialog(this, "Cancelado.");
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    //HOVER
     private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited
         // TODO add your handling code here:
         btnCancelar.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_btnCancelarMouseExited
-
+    //HOVER
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
         // TODO add your handling code here:
         btnCancelar.setBackground(Color.GRAY);
@@ -404,6 +425,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //btn GUARDAR - INSERT EN TABLA CLIENTE
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+    
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String cedula =  txtCedula.getText();
@@ -417,21 +439,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         //Instancia objeto Cliente con los datos obtenidos del form
         Cliente cliente = new Cliente(nombre, apellido, cedula, celular, direccion, marcaVehiculo, modeloVehiculo, anioVehiculo);
+        //Instancia objeto servicio con los datos obtenidos del form
         Servicio servicio = new Servicio(servicioAdquirido, detalle);
         
         clienteDAO.insertarDatos(cliente, servicio);
         JOptionPane.showMessageDialog(this, "Datos Gurdados.");
+        //METODO LIMPIAR PANTALLA
+        limpiarPantalla();
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    //HOVER
     private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
         // TODO add your handling code here:
         btnGuardar.setBackground(new Color(153, 153, 153));
     }//GEN-LAST:event_btnGuardarMouseExited
-
+    //HOVER
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
         // TODO add your handling code here:
         btnGuardar.setBackground(Color.GRAY);
     }//GEN-LAST:event_btnGuardarMouseEntered
+    //BTN CARGAR LISTA CLIENTES
+    private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
+        // TODO add your handling code here:
+        VentaDatos ventaDatos = new VentaDatos();
+        ventaDatos.setVisible(true);
+        ventaDatos.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCargarDatosActionPerformed
 
     //Vista Ventana Principal
     /**
@@ -440,6 +472,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCargarDatos;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbServicioAdquirido;
     private javax.swing.JLabel jLabel1;

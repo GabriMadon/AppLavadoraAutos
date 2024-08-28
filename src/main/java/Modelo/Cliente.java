@@ -9,21 +9,22 @@ package Modelo;
  * @author juand
  */
 public class Cliente {
+
     //ATRIBUTOS
-    private  String nombre;
-    private  String apellido;
+    private int id_cliente;
+    private String nombre;
+    private String apellido;
     private String cedula;
     private String celular;
     private String direccion;
     private String marca;
     private String modelo;
     private int anio;
-    
+
     //CONSTRUCTORES
-    
-    public Cliente(String nombre,String apellido, String cedula, String celular,
-    String direccion, String marca, String modelo, int anio)
-    {
+    // Constructor sin idCliente (para cuando se crea un nuevo cliente)
+    public Cliente(String nombre, String apellido, String cedula, String celular,
+            String direccion, String marca, String modelo, int anio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -32,11 +33,30 @@ public class Cliente {
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
-        
     }
-    
-    
+    //CONSTRUCTOR CON ID CLIENTE (para cuando se obtienen datos de la DB)
+    public Cliente(int id_cliente, String nombre, String apellido, String cedula, String celular,
+            String direccion, String marca, String modelo, int anio) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
+        this.celular = celular;
+        this.direccion = direccion;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+
+    }
+
     //GETTERS AND SETTERS
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
 
     public String getNombre() {
         return nombre;
@@ -101,11 +121,5 @@ public class Cliente {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

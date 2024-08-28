@@ -5,6 +5,7 @@
 package Controlador;
 
 import Modelo.Cliente;
+import Modelo.ClienteServicio;
 import Modelo.ConexionDB;
 import Modelo.Servicio;
 import java.sql.Connection;
@@ -12,15 +13,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
  * @author juand
  */
 public class ClienteDAO {
-    //Select DB 
+    //METODO SELECT DB
 
-    public void SelectClientes() {
+    public List<ClienteServicio> SelectClientes() {
+        List<ClienteServicio> listaClienteServicio = new ArrayList<>();
 
         String tabla = "SELECT * FROM clientes";//tabla clientes DB
 
@@ -32,35 +36,32 @@ public class ClienteDAO {
             ResultSet resultSet = statement.executeQuery(tabla);
 
             while (resultSet.next()) {
-                int id_cliente = resultSet.getInt("id_cliente");
-                String nombre = resultSet.getString("nombre");
-                String apellido = resultSet.getString("apellido");
-                String cedula = resultSet.getString("cedula");
-                String celular = resultSet.getString("celular");
-                String direccion = resultSet.getString("direccion");
-                String marca = resultSet.getString("marca");
-                String modelo = resultSet.getString("modelo");
-                int anio = resultSet.getInt("anio");
-                String servicio = resultSet.getString("servicio");
-                String detalle = resultSet.getString("detalle");
-
-                //Imprimir en consola Tabla
-                System.out.println("ID: " + id_cliente + "| Nombre: " + nombre
-                        + " |Apellido: " + apellido + " |Cédula: " + cedula
-                        + " |Celular: " + celular + " |Dirección: " + direccion
+                Cliente cliente = new Cliente(
+                        resultSet.getInt("id_cliente"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("apellido"),
+                        resultSet.getString("cedula"),
+                        resultSet.getString("celular"),
+                        resultSet.getString("direccion"),
+                        resultSet.getString("marca"),
+                        resultSet.getString("modelo"),
+                        resultSet.getInt("anio")
                 );
-                System.out.println("Marca Vehiculo : " + marca + " |Modelo: " + modelo
-                        + " |Año: " + anio + " |Servicio: " + servicio
-                        + " |Detalle: " + detalle);
+                Servicio servicio = new Servicio(
+                        resultSet.getString("servicio"),
+                        resultSet.getString("detalle"));
 
+             ClienteServicio clienteServicio = new ClienteServicio(cliente, servicio);
+             listaClienteServicio.add(clienteServicio);
             }
 
         } catch (SQLException e) {
             System.out.println("Error de consulta a TABLA clientes de DB");
         }
-
+        return listaClienteServicio;
     }
 
+    //METODO INSERT DB
     public void insertarDatos(Cliente cliente, Servicio servicio) {
         String tabla = "INSERT INTO clientes (nombre, apellido, "
                 + "cedula,celular, direccion, marca, modelo, anio, servicio, detalle) "
