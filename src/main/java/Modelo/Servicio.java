@@ -20,6 +20,9 @@ public class Servicio {
         this.detalle = detalle;
     }
     
+    public Servicio(){
+    }
+    
     
     
     //GETERS AN SETTERS

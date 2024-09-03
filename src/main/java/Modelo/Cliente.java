@@ -48,7 +48,10 @@ public class Cliente {
         this.anio = anio;
 
     }
-
+    
+    public Cliente(){
+    
+    }
     //GETTERS AND SETTERS
     public int getId_cliente() {
         return id_cliente;
@@ -123,3 +126,4 @@ public class Cliente {
     }
 
 }
+

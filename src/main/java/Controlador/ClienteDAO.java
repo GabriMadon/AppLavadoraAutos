@@ -51,8 +51,8 @@ public class ClienteDAO {
                         resultSet.getString("servicio"),
                         resultSet.getString("detalle"));
 
-             ClienteServicio clienteServicio = new ClienteServicio(cliente, servicio);
-             listaClienteServicio.add(clienteServicio);
+                ClienteServicio clienteServicio = new ClienteServicio(cliente, servicio);
+                listaClienteServicio.add(clienteServicio);
             }
 
         } catch (SQLException e) {
@@ -63,10 +63,39 @@ public class ClienteDAO {
 
     //METODO INSERT DB
     public void insertarDatos(Cliente cliente, Servicio servicio) {
+        
         String tabla = "INSERT INTO clientes (nombre, apellido, "
                 + "cedula,celular, direccion, marca, modelo, anio, servicio, detalle) "
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
+        try {
+            Connection connection = ConexionDB.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(tabla);
+            preparedStatement.setString(1, cliente.getNombre());
+            preparedStatement.setString(2, cliente.getApellido());
+            preparedStatement.setString(3, cliente.getCedula());
+            preparedStatement.setString(4, cliente.getCelular());
+            preparedStatement.setString(5, cliente.getDireccion());
+            preparedStatement.setString(6, cliente.getMarca());
+            preparedStatement.setString(7, cliente.getModelo());
+            preparedStatement.setInt(8, cliente.getAnio());
+            preparedStatement.setString(9, servicio.getServicio());
+            preparedStatement.setString(10, servicio.getDetalle());
+
+            preparedStatement.executeUpdate();
+            System.out.println("Usuario registrado correctamente");
+
+        } catch (SQLException e) {
+            System.out.println("Error al registrar Cliente" + e.getMessage());
+        }
+
+    }
+
+    //METODO UPDATE DB
+    public void updateCliente(Cliente cliente, Servicio servicio) {
+        String tabla = "UPDATE clientes SET(nombre, apellido, "
+                + "cedula,celular, direccion, marca, modelo, anio, servicio, detalle) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             Connection connection = ConexionDB.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(tabla);

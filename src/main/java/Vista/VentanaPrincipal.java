@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author juand
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    //ATRIBUTOS
     private ClienteDAO clienteDAO;
     private Servicio servicio;
 
@@ -25,14 +25,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param clienteDAO
      * @param servicio
      */
+    //CONSTRUCTOR
     public VentanaPrincipal(ClienteDAO clienteDAO, Servicio servicio) {
         this.clienteDAO = clienteDAO;
         this.servicio = servicio;
-        
         initComponents();
         
     }
-    
+    //METODOS 
     //METODO LIMPIAR PANTALLA 
     public void limpiarPantalla() {
         txtNombre.setText("");
@@ -425,7 +425,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //btn GUARDAR - INSERT EN TABLA CLIENTE
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-    
+        //OBTENER DATOS DEL 
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String cedula =  txtCedula.getText();
@@ -457,14 +457,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnGuardar.setBackground(Color.GRAY);
     }//GEN-LAST:event_btnGuardarMouseEntered
-    //BTN CARGAR LISTA CLIENTES
+    //BTN CARGARDATOS - LISTA CLIENTES
     private void btnCargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarDatosActionPerformed
         // TODO add your handling code here:
-        VentaDatos ventaDatos = new VentaDatos();
+        VentanaDatos ventaDatos = new VentanaDatos();
         ventaDatos.setVisible(true);
         ventaDatos.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCargarDatosActionPerformed
 
+    /*public void updateCliente(Cliente cliente, Servicio servicio) {
+    txtNombre.setText(cliente.getNombre());
+    txtApellido.setText(cliente.getApellido());
+    txtCedula.setText(cliente.getCedula());
+    txtCelular.setText(cliente.getCelular());
+    txtDireccion.setText(cliente.getDireccion());
+    txtMarcaVehiculo.setText(cliente.getMarca());
+    txtModeloVehiculo.setText(cliente.getModelo());
+    txtAnioVehiculo.setText(Integer.toString(cliente.getAnio()));
+    cmbServicioAdquirido.setSelectedItem(servicio.getServicio());
+    txtDetalles.setText(servicio.getDetalle());
+}*/
     //Vista Ventana Principal
     /**
      * @param args the command line arguments
