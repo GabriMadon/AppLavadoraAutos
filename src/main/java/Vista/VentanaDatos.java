@@ -6,8 +6,6 @@ package Vista;
 
 import Controlador.ClienteDAO;
 import Modelo.Cliente;
-import Modelo.ClienteServicio;
-import Modelo.Servicio;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,13 +17,13 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaDatos extends javax.swing.JFrame {
 
     //ATRIBUTOS
-    int filaSeleccionada;
+    int filaSeleccionada;//selecciona fila
 
     //CONSTRUCTOR
     public VentanaDatos() {
-
         initComponents();
         cargarDatosTabla();
+
         // Asegura que solo se cierre la ventanaDatos
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -36,15 +34,14 @@ public class VentanaDatos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTDatos.getModel();
         modelo.setRowCount(0);
 
-        //LLAMAMOS METODO SELECT DE CLIENTEDAO
+        //LLAMAMOS METODO SelectClientes() DE CLIENTEDAO
         ClienteDAO clienteDAO = new ClienteDAO();
-        List<ClienteServicio> listaClienteServicios = clienteDAO.SelectClientes();
-        listaClienteServicios = clienteDAO.SelectClientes();
-        for (ClienteServicio clienteServicio : listaClienteServicios) {
-            Cliente cliente = clienteServicio.getCliente();
-            Servicio servicio = clienteServicio.getServicio();
+        List<Cliente> listaCliente = clienteDAO.SelectClientes();
+        listaCliente = clienteDAO.SelectClientes();
 
-            Object[] fila = new Object[11];  // 11 columnas en tu tabla
+        for (Cliente cliente : listaCliente) {
+
+            Object[] fila = new Object[11];
             fila[0] = cliente.getId_cliente();
             fila[1] = cliente.getNombre();
             fila[2] = cliente.getApellido();
@@ -54,11 +51,32 @@ public class VentanaDatos extends javax.swing.JFrame {
             fila[6] = cliente.getMarca();
             fila[7] = cliente.getModelo();
             fila[8] = cliente.getAnio();
-            fila[9] = servicio.getServicio();
-            fila[10] = servicio.getDetalle();
+            fila[9] = cliente.getServicio();
+            fila[10] = cliente.getDetalle();
 
             modelo.addRow(fila);  // Añadimos la fila al modelo
         }
+    }
+
+    // Método para mostrar un cliente en la tabla
+    public void mostrarClienteEnTabla(Cliente cliente) {
+        DefaultTableModel modelo = (DefaultTableModel) jTDatos.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        Object[] fila = new Object[11];
+        fila[0] = cliente.getId_cliente();
+        fila[1] = cliente.getNombre();
+        fila[2] = cliente.getApellido();
+        fila[3] = cliente.getCedula();
+        fila[4] = cliente.getCelular();
+        fila[5] = cliente.getDireccion();
+        fila[6] = cliente.getMarca();
+        fila[7] = cliente.getModelo();
+        fila[8] = cliente.getAnio();
+        fila[9] = cliente.getServicio();
+        fila[10] = cliente.getDetalle();
+
+        modelo.addRow(fila);
     }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +88,7 @@ public class VentanaDatos extends javax.swing.JFrame {
         jTDatos = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnBuscarPorCedula = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,11 +129,6 @@ public class VentanaDatos extends javax.swing.JFrame {
         jTDatos.setRowHeight(25);
         jTDatos.setRowMargin(10);
         jTDatos.setShowGrid(true);
-        jTDatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTDatosMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTDatos);
         if (jTDatos.getColumnModel().getColumnCount() > 0) {
             jTDatos.getColumnModel().getColumn(0).setMinWidth(40);
@@ -142,15 +156,25 @@ public class VentanaDatos extends javax.swing.JFrame {
         btnEliminar.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
 
+        btnBuscarPorCedula.setFont(new java.awt.Font("Ebrima", 0, 14)); // NOI18N
+        btnBuscarPorCedula.setText("Buscar por Cédula");
+        btnBuscarPorCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPorCedulaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(608, 608, 608)
+                .addGap(507, 507, 507)
+                .addComponent(btnBuscarPorCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144)
+                .addGap(50, 50, 50)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(432, Short.MAX_VALUE))
         );
@@ -162,8 +186,9 @@ public class VentanaDatos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarPorCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,50 +204,52 @@ public class VentanaDatos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //btn EDITAR
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         //Seleccionamos con el mouse una Row
         // Obtenemos los datos de la fila seleccionada
+        filaSeleccionada = jTDatos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            // Obtenemos los datos de la fila seleccionada
+            int idCliente = (Integer) jTDatos.getValueAt(filaSeleccionada, 0);
+            String nombre = jTDatos.getValueAt(filaSeleccionada, 1).toString();
+            String apellido = jTDatos.getValueAt(filaSeleccionada, 2).toString();
+            String cedula = jTDatos.getValueAt(filaSeleccionada, 3).toString();
+            String celular = jTDatos.getValueAt(filaSeleccionada, 4).toString();
+            String direccion = jTDatos.getValueAt(filaSeleccionada, 5).toString();
+            String marca = jTDatos.getValueAt(filaSeleccionada, 6).toString();
+            String modelo = jTDatos.getValueAt(filaSeleccionada, 7).toString();
+            int anio = Integer.parseInt(jTDatos.getValueAt(filaSeleccionada, 8).toString());
+            String servicio = jTDatos.getValueAt(filaSeleccionada, 9).toString();
+            String detalle = jTDatos.getValueAt(filaSeleccionada, 10).toString();
 
-        // Obtenemos la fila seleccionada de la tabla
-    filaSeleccionada = jTDatos.getSelectedRow();
-    if (filaSeleccionada != -1) {
-        // Obtenemos los datos de la fila seleccionada
-        int idCliente = (Integer) jTDatos.getValueAt(filaSeleccionada,0);
-        String nombre = jTDatos.getValueAt(filaSeleccionada, 1).toString();
-        String apellido = jTDatos.getValueAt(filaSeleccionada, 2).toString();
-        String cedula = jTDatos.getValueAt(filaSeleccionada, 3).toString();
-        String celular = jTDatos.getValueAt(filaSeleccionada, 4).toString();
-        String direccion = jTDatos.getValueAt(filaSeleccionada, 5).toString();
-        String marca = jTDatos.getValueAt(filaSeleccionada, 6).toString();
-        String modelo = jTDatos.getValueAt(filaSeleccionada, 7).toString();
-        int anio = Integer.parseInt(jTDatos.getValueAt(filaSeleccionada, 8).toString());
-        String servicio = jTDatos.getValueAt(filaSeleccionada, 9).toString();
-        String detalle = jTDatos.getValueAt(filaSeleccionada, 10).toString();
+            // Crear un objeto Cliente y Servicio con los datos seleccionados
+            Cliente clienteSeleccionado = new Cliente(idCliente, nombre,
+                    apellido, cedula, celular, direccion, marca, modelo, anio, servicio, detalle);
 
-        // Crear un objeto Cliente y Servicio con los datos seleccionados
-        Cliente clienteSeleccionado = new Cliente(idCliente, nombre, apellido, cedula, celular, direccion, marca, modelo, anio);
-        Servicio servicioSeleccionado = new Servicio(servicio, detalle);
+            // Pasamos los datos al constructor de VentanaEdicion
+            VentanaEdicion ventanaEdicion = new VentanaEdicion(clienteSeleccionado);
+            ventanaEdicion.setVisible(true);
+            ventanaEdicion.setLocationRelativeTo(null);
 
-        // Pasamos los datos al constructor de VentanaEdicion
-        VentanaEdicion ventanaEdicion = new VentanaEdicion(clienteSeleccionado, servicioSeleccionado);
-        ventanaEdicion.setVisible(true);
-        ventanaEdicion.setLocationRelativeTo(null);
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor selecciona una fila.");
-    }
-
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor selecciona una fila.");
+        }
 
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void jTDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDatosMouseClicked
+    //btn BUSCAR
+    private void btnBuscarPorCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorCedulaActionPerformed
         // TODO add your handling code here:
-        filaSeleccionada = jTDatos.getSelectedRow();
-    }//GEN-LAST:event_jTDatosMouseClicked
+        VentanaBusqueda ventanaBusqueda = new VentanaBusqueda(this);
+        ventanaBusqueda.setVisible(true);
+        ventanaBusqueda.setLocationRelativeTo(null);
+
+    }//GEN-LAST:event_btnBuscarPorCedulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarPorCedula;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JPanel jPanel1;

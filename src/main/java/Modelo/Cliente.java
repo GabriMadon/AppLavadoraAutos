@@ -20,11 +20,13 @@ public class Cliente {
     private String marca;
     private String modelo;
     private int anio;
+    private String servicio;
+    private String detalle;
 
     //CONSTRUCTORES
     // Constructor sin idCliente (para cuando se crea un nuevo cliente)
     public Cliente(String nombre, String apellido, String cedula, String celular,
-            String direccion, String marca, String modelo, int anio) {
+            String direccion, String marca, String modelo, int anio, String servicio, String detalle) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -33,10 +35,13 @@ public class Cliente {
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
+        this.servicio = servicio;
+        this.detalle = detalle;
     }
+
     //CONSTRUCTOR CON ID CLIENTE (para cuando se obtienen datos de la DB)
     public Cliente(int id_cliente, String nombre, String apellido, String cedula, String celular,
-            String direccion, String marca, String modelo, int anio) {
+            String direccion, String marca, String modelo, int anio, String servicio, String detalle) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -46,12 +51,15 @@ public class Cliente {
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
+        this.servicio = servicio;
+        this.detalle = detalle;
 
     }
-    
-    public Cliente(){
-    
+
+    public Cliente() {
+
     }
+
     //GETTERS AND SETTERS
     public int getId_cliente() {
         return id_cliente;
@@ -125,5 +133,20 @@ public class Cliente {
         this.anio = anio;
     }
 
-}
+    public String getServicio() {
+        return servicio;
+    }
 
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
+    }
+
+}

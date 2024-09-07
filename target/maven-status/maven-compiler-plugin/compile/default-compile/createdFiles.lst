@@ -1,10 +1,10 @@
 Controlador\ControladorServicio.class
-Modelo\Servicio.class
 Vista\VentanaEdicion$1.class
 Vista\VentanaPrincipal$4.class
-Modelo\ClienteServicio.class
 Vista\VentanaPrincipal$3.class
 Controlador\ControladoCliente.class
+Vista\VentanaBusqueda$1.class
+Vista\VentanaBusqueda.class
 Vista\VentanaDatos$1.class
 Vista\VentanaDatos.class
 Vista\VentanaEdicion.class

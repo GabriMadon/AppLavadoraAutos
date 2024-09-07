@@ -40,9 +40,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="608" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="507" max="-2" attributes="0"/>
+                  <Component id="btnBuscarPorCedula" min="-2" pref="152" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="btnEditar" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="btnEliminar" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace pref="432" max="32767" attributes="0"/>
               </Group>
@@ -57,8 +59,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnEliminar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="btnEditar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="btnBuscarPorCedula" pref="35" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -162,9 +165,6 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTDatosMouseClicked"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -186,6 +186,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBuscarPorCedula">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ebrima" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Buscar por C&#xe9;dula"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPorCedulaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

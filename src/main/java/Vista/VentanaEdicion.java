@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-
 import Modelo.Cliente;
-import Modelo.Servicio;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +14,7 @@ public class VentanaEdicion extends javax.swing.JFrame {
 
     //ATRIBUTOS
     private Cliente cliente;
-    private Servicio servicio;
+
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
@@ -30,18 +27,20 @@ public class VentanaEdicion extends javax.swing.JFrame {
     private javax.swing.JTextField txtDetalle;
 
     //CONSTRUCTOR inicializar ventanaEdicion
-    public VentanaEdicion(Cliente cliente, Servicio servicio) {
+    public VentanaEdicion(Cliente cliente) {
         this.cliente = cliente;
-        this.servicio = servicio;
         initComponents();
-        cargarDatos(cliente, servicio);
+        cargarDatos(cliente);
         mostrarDatosEnTabla();
+        
+       // Configuracion para cerrar solo esta ventana 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     }
 
     //METODOS
     //METODO PARA CARGAR DATOS
-    private void cargarDatos(Cliente cliente, Servicio servicio) {
+    private void cargarDatos(Cliente cliente) {
         txtNombre.setText(cliente.getNombre());
         txtApellido.setText(cliente.getApellido());
         txtCedula.setText(cliente.getCedula());
@@ -50,15 +49,15 @@ public class VentanaEdicion extends javax.swing.JFrame {
         txtMarca.setText(cliente.getMarca());
         txtModelo.setText(cliente.getModelo());
         txtAnio.setText(String.valueOf(cliente.getAnio()));
-        txtServicio.setText(servicio.getServicio());
-        txtDetalle.setText(servicio.getDetalle());
+        txtServicio.setText(cliente.getServicio());
+        txtDetalle.setText(cliente.getDetalle());
 
     }
     //METODO PARA MOSTRAR LOS DATOS EN LA TABLA
     private void mostrarDatosEnTabla() {
         DefaultTableModel model = (DefaultTableModel) tablaEdicion.getModel();
-        model.setRowCount(0); // Limpiar datos actuales
-
+        model.setRowCount(0); // Limpia tabla/setRow y addRow son metodos del objeto DefautlModel
+        //array tipo objeto
         Object[] rowData = {
             cliente.getId_cliente(),
             cliente.getNombre(),
@@ -69,11 +68,11 @@ public class VentanaEdicion extends javax.swing.JFrame {
             cliente.getMarca(),
             cliente.getModelo(),
             cliente.getAnio(),
-            servicio.getServicio(),
-            servicio.getDetalle()
+            cliente.getServicio(),
+            cliente.getDetalle()
         };
 
-        model.addRow(rowData);
+        model.addRow(rowData);//rowData contiene los datos a mostrar en una fila de la tabla
     }
 
     /**
@@ -98,12 +97,15 @@ public class VentanaEdicion extends javax.swing.JFrame {
         txtServicio = new javax.swing.JTextField();
         txtDetalle = new javax.swing.JTextField();
         tablaEdicion = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tablaEdicion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaEdicion.setFont(new java.awt.Font("Ebrima", 0, 14)); // NOI18N
         tablaEdicion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "id_cliente", "Nombre", "Apellido", "Cedula", "Celular", "Dirección", "Marca", "Modelo", "Año", "Servicio", "Detalle"
@@ -117,19 +119,63 @@ public class VentanaEdicion extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tablaEdicion.setShowGrid(true);
         jScrollPane1.setViewportView(tablaEdicion);
+        if (tablaEdicion.getColumnModel().getColumnCount() > 0) {
+            tablaEdicion.getColumnModel().getColumn(0).setMinWidth(50);
+            tablaEdicion.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tablaEdicion.getColumnModel().getColumn(0).setMaxWidth(50);
+            tablaEdicion.getColumnModel().getColumn(1).setMinWidth(100);
+            tablaEdicion.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tablaEdicion.getColumnModel().getColumn(1).setMaxWidth(100);
+            tablaEdicion.getColumnModel().getColumn(2).setMinWidth(100);
+            tablaEdicion.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tablaEdicion.getColumnModel().getColumn(2).setMaxWidth(100);
+            tablaEdicion.getColumnModel().getColumn(3).setMinWidth(100);
+            tablaEdicion.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tablaEdicion.getColumnModel().getColumn(3).setMaxWidth(100);
+            tablaEdicion.getColumnModel().getColumn(4).setMinWidth(120);
+            tablaEdicion.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tablaEdicion.getColumnModel().getColumn(4).setMaxWidth(120);
+            tablaEdicion.getColumnModel().getColumn(5).setMinWidth(120);
+            tablaEdicion.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tablaEdicion.getColumnModel().getColumn(5).setMaxWidth(120);
+            tablaEdicion.getColumnModel().getColumn(6).setMinWidth(100);
+            tablaEdicion.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tablaEdicion.getColumnModel().getColumn(6).setMaxWidth(100);
+            tablaEdicion.getColumnModel().getColumn(7).setMinWidth(100);
+            tablaEdicion.getColumnModel().getColumn(7).setPreferredWidth(100);
+            tablaEdicion.getColumnModel().getColumn(7).setMaxWidth(100);
+            tablaEdicion.getColumnModel().getColumn(8).setMinWidth(60);
+            tablaEdicion.getColumnModel().getColumn(8).setPreferredWidth(60);
+            tablaEdicion.getColumnModel().getColumn(8).setMaxWidth(60);
+            tablaEdicion.getColumnModel().getColumn(9).setMinWidth(120);
+            tablaEdicion.getColumnModel().getColumn(9).setPreferredWidth(120);
+            tablaEdicion.getColumnModel().getColumn(9).setMaxWidth(120);
+            tablaEdicion.getColumnModel().getColumn(10).setMinWidth(180);
+            tablaEdicion.getColumnModel().getColumn(10).setPreferredWidth(180);
+            tablaEdicion.getColumnModel().getColumn(10).setMaxWidth(180);
+        }
+
+        jButton2.setText("Guardar Cambios");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(217, 217, 217))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1184, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,6 +194,7 @@ public class VentanaEdicion extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaEdicion;
