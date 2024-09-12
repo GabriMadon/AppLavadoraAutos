@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
 public class VentanaBusqueda extends javax.swing.JFrame {
      //ATRIBUTOS
     private String cedula;
-    private VentanaDatos ventanaDatos;
+    
 
     //CONSTRUCTOR
-    public VentanaBusqueda(VentanaDatos ventanaDatos) {
+    public VentanaBusqueda() {
         initComponents();//inicializa componentes graficos de swing
-        this.ventanaDatos = ventanaDatos;
+
 
     }
 
@@ -38,7 +38,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
         if (cliente != null) {
             // Mostrar el cliente en la tabla de VentanaDatos
-            ventanaDatos.mostrarClienteEnTabla(cliente);
+            //ventanaDatos.mostrarClienteEnTabla(cliente);
             this.dispose(); // Cerrar VentanaBusqueda
         } else {
             JOptionPane.showMessageDialog(this, "Cliente no encontrado.");

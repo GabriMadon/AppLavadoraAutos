@@ -47,9 +47,8 @@ public class ClienteDAO {
                         resultSet.getString("servicio"),
                         resultSet.getString("detalle")
                 );
-               
-                        //resultSet.getString("cliente");
-                 
+
+                //resultSet.getString("cliente");
                 listaCliente.add(cliente);
             }
 
@@ -92,7 +91,7 @@ public class ClienteDAO {
     //METODO BUSCAR POR CEDULA / SELECT * FROM WHERE
     public Cliente BuscarCedula(String cedula) {
         Cliente cliente = null;
-        
+
         String tabla;//tabla clientes DB
         tabla = "SELECT * FROM clientes WHERE cedula = ?";
 
@@ -106,7 +105,7 @@ public class ClienteDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                        cliente = new Cliente(
+                cliente = new Cliente(
                         resultSet.getInt("id_cliente"),
                         resultSet.getString("nombre"),
                         resultSet.getString("apellido"),
@@ -118,45 +117,109 @@ public class ClienteDAO {
                         resultSet.getInt("anio"),
                         resultSet.getString("servicio"),
                         resultSet.getString("detalle")
-                );                
-                    //resultSet.getString("cliente");
-                
-               // listaCliente.add(cliente);
+                );
+                //resultSet.getString("cliente");
+
+                // listaCliente.add(cliente);
             }
 
         } catch (SQLException e) {
-            System.out.println("(UPDATE) Error de Busqueda a TABLA clientes de DB");
+            System.out.println("Error de Busqueda a TABLA clientes de DB");
         }
         return cliente;
     }
 
     //METODO UPDATE DB
-    public void updateCliente(Cliente cliente) {
-        String tabla = "UPDATE clientes WHERE cedula=?"
-                + "WHERE id_cliente";
+    public boolean updateCliente(Cliente cliente) {
+        String tabla = "UPDATE clientes SET nombre = ?, apellido = ?,"
+                + " celular = ?, direccion = ?, marca = ?, modelo = ? , "
+                + "anio = ?, servicio = ? , detalle = ? WHERE cedula = ?";
+        System.out.println("Cedula para actualizar " + cliente.getCedula());
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
         try {
-            Connection connection = ConexionDB.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(tabla);
-            preparedStatement.setString(1, tabla);
-            
+            connection = ConexionDB.getConnection();
+            preparedStatement = connection.prepareStatement(tabla);
+            //preparedStatement.setString(1, tabla);
+
             preparedStatement.setString(1, cliente.getNombre());
             preparedStatement.setString(2, cliente.getApellido());
-            preparedStatement.setString(3, cliente.getCedula());
-            preparedStatement.setString(4, cliente.getCelular());
-            preparedStatement.setString(5, cliente.getDireccion());
-            preparedStatement.setString(6, cliente.getMarca());
-            preparedStatement.setString(7, cliente.getModelo());
-            preparedStatement.setInt(8, cliente.getAnio());
-            preparedStatement.setString(9, cliente.getServicio());
-            preparedStatement.setString(10, cliente.getDetalle());
+            preparedStatement.setString(3, cliente.getCelular());
+            //preparedStatement.setString(4, cliente.getCelular());
+            preparedStatement.setString(4, cliente.getDireccion());
+            preparedStatement.setString(5, cliente.getMarca());
+            preparedStatement.setString(6, cliente.getModelo());
+            preparedStatement.setInt(7, cliente.getAnio());
+            preparedStatement.setString(8, cliente.getServicio());
+            preparedStatement.setString(9, cliente.getDetalle());
+            preparedStatement.setString(10, cliente.getCedula());
 
-            preparedStatement.executeUpdate();
-            System.out.println("Actualizado correctamente");
-
+            int filasActualizadas = preparedStatement.executeUpdate();
+            System.out.println("Filas actualizadas " + filasActualizadas);
+            if (filasActualizadas > 0) {
+                System.out.println("Actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("No se encontró el cliente con la cédula proporcionada.");
+                return false;
+            }
         } catch (SQLException e) {
-            System.out.println("Error al actualizar" + e.getMessage());
+            System.out.println("Error al actualizar: " + e.getMessage());
+            return false;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
         }
+    }
 
+    // MEtodo eminiar DB
+    public boolean eliminarCliente(int idCliente) {
+        String tabla = "DELETE FROM clientes WHERE id_cliente = ?";
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = ConexionDB.getConnection();
+            preparedStatement = connection.prepareStatement(tabla);
+            preparedStatement.setInt(1, idCliente);
+
+            int filasEliminadas = preparedStatement.executeUpdate();
+            System.out.println("Filas eliminadas " + filasEliminadas);
+            if (filasEliminadas > 0) {
+                System.out.println("Eliminado correctamente.");
+                return true;
+            } else {
+                System.out.println("No se encontró el cliente con el ID proporcionado.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar: " + e.getMessage());
+            return false;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
     }
 
 }
