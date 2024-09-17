@@ -14,22 +14,24 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- *
- * @author juand
- */
 public class ClienteDAO {
 
-    //METODO SELECT DB ** SELECCIONA TODOS LOS REGISTRO DE LA TABLA
+    //ATRIBUTOS
+    private ConexionDB conexionDB;
+
+    //CONSTRUCTOR
+    public ClienteDAO(ConexionDB conexionDB) {
+        this.conexionDB = conexionDB;
+    }
+
+    //METODO listar SELECT DB ** SELECCIONA TODOS LOS REGISTRO DE LA TABLA
     public List<Cliente> SelectClientes() {
+        String tabla = "SELECT * FROM clientes";//tabla clientes DB
         List<Cliente> listaCliente = new ArrayList<>();
 
-        String tabla = "SELECT * FROM clientes";//tabla clientes DB
-
         try {
-            Connection connection = ConexionDB.getConnection();//metodo Connection
             //Statement ejecuta consultas SQL (SELECT INSERT UPDATE DELETE)
-            Statement statement = connection.createStatement();
+            Statement statement = conexionDB.getConnection().createStatement();
             //ResultSet Almacena y procesa resultados de consulta SQL
             ResultSet resultSet = statement.executeQuery(tabla);
 
@@ -58,7 +60,7 @@ public class ClienteDAO {
         return listaCliente;
     }
 
-    //METODO INSERT DB
+    //METODO INSERT DB agregar cliente
     public void insertarDatos(Cliente cliente) {
 
         String tabla = "INSERT INTO clientes (nombre, apellido, "
@@ -66,8 +68,8 @@ public class ClienteDAO {
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try {
-            Connection connection = ConexionDB.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(tabla);
+          
+            PreparedStatement preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             preparedStatement.setString(1, cliente.getNombre());
             preparedStatement.setString(2, cliente.getApellido());
             preparedStatement.setString(3, cliente.getCedula());
@@ -90,15 +92,13 @@ public class ClienteDAO {
 
     //METODO BUSCAR POR CEDULA / SELECT * FROM WHERE
     public Cliente BuscarCedula(String cedula) {
+        String tabla = "SELECT * FROM clientes WHERE cedula = ?";
         Cliente cliente = null;
 
-        String tabla;//tabla clientes DB
-        tabla = "SELECT * FROM clientes WHERE cedula = ?";
-
         try {
-            Connection connection = ConexionDB.getConnection();//metodo Connection
+            
             //Statement ejecuta consultas SQL (SELECT INSERT UPDATE DELETE)
-            PreparedStatement preparedStatement = connection.prepareStatement(tabla);
+            PreparedStatement preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             preparedStatement.setString(1, cedula);
 
             //ResultSet Almacena y procesa resultados de consulta SQL
@@ -140,8 +140,7 @@ public class ClienteDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConexionDB.getConnection();
-            preparedStatement = connection.prepareStatement(tabla);
+            preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             //preparedStatement.setString(1, tabla);
 
             preparedStatement.setString(1, cliente.getNombre());
@@ -191,8 +190,7 @@ public class ClienteDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = ConexionDB.getConnection();
-            preparedStatement = connection.prepareStatement(tabla);
+            preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             preparedStatement.setInt(1, idCliente);
 
             int filasEliminadas = preparedStatement.executeUpdate();

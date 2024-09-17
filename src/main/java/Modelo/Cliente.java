@@ -4,6 +4,8 @@
  */
 package Modelo;
 
+import Vista.VentanaPrincipal;
+
 /**
  *
  * @author juand

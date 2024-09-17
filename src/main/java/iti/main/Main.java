@@ -4,6 +4,8 @@
 package iti.main;
 
 import Controlador.ClienteDAO;
+import Controlador.ControladorCliente;
+import Modelo.ConexionDB;
 
 import Vista.VentanaPrincipal;
 
@@ -12,16 +14,15 @@ import Vista.VentanaPrincipal;
  * @author juand
  */
 public class Main {
-
     public static void main(String[] args) {
-        ClienteDAO clienteDAO = new ClienteDAO();
+        ConexionDB conexionDB = new ConexionDB() ;
+        ClienteDAO clienteDAO = new ClienteDAO(conexionDB);
+        VentanaPrincipal ventana = new VentanaPrincipal(clienteDAO);
+        ControladorCliente controlador = new ControladorCliente(clienteDAO, ventana);
     
-        //Ver Ventana Principal 
-        VentanaPrincipal princ = new VentanaPrincipal(clienteDAO);
-        princ.setVisible(true);//visible pantalla principal
-        princ.setLocationRelativeTo(null);// ubicacion en el centro de la pantalla
+        ventana.setVisible(true);//visible pantalla principal
+        ventana.setLocationRelativeTo(null);// ubicacion en el centro de la pantalla
         
-        clienteDAO.SelectClientes();
         
     }
 }
