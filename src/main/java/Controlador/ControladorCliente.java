@@ -124,11 +124,10 @@ public class ControladorCliente {
 
         clienteDAO.updateCliente(cliente);
         JOptionPane.showMessageDialog(null, "Datos Actualizados.");
-        //METODO LIMPIAR PANTALLA
         ventanaPrincipal.cargarTabla();
         ventanaPrincipal.limpiarPantalla();
     }
-
+    //eliminarCliente()-> delete de SQL
     private void eliminarCliente() {
         int fila = ventanaPrincipal.getjTDatosClientes().getSelectedRow();
         if (fila == -1) {
@@ -153,7 +152,7 @@ public class ControladorCliente {
         ventanaPrincipal.getjTDatosClientes();
 
     }
-
+    //Seleccionamos cleinte de la row
     public void seleccionarCliente() {
         int fila = ventanaPrincipal.getjTDatosClientes().getSelectedRow();
         if (fila == -1) {
@@ -189,4 +188,6 @@ public class ControladorCliente {
             // ventanaPrincipal.setIdClienteSeleccionado(idClienteSeleccionado);
         }
     }
+    
+    
 }
