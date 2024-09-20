@@ -58,6 +58,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtAnioVehiculo.setText("");
         cmbServicioAdquirido.setSelectedIndex(0);
         txtDetalles.setText("");
+        
     }
 
     //cargarTabla()
@@ -694,10 +695,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //METODO CANCELAR
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        //METODO PARA LIMPIAR FORMULARIO AL CANCELAR
-        limpiarPantalla();
-        //MENSAJE CANCELAD
-        JOptionPane.showMessageDialog(this, "Cancelado.");
+        JOptionPane.showMessageDialog(this, "Todos los campos han sido restablecidos");
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited

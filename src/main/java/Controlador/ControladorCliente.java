@@ -82,6 +82,28 @@ public class ControladorCliente {
 
     //guardarCliente()-> insert de SQL
     private void guardarCliente() {
+        //validaciones para que los campos no esten  vacios
+        if (ventanaPrincipal.getTxtNombre().getText().isEmpty() || ventanaPrincipal.getTxtApellido().getText().isEmpty()
+                || ventanaPrincipal.getTxtCedula().getText().isEmpty() || ventanaPrincipal.getTxtCelular().getText().isEmpty()
+                || ventanaPrincipal.getTxtDireccion().getText().isEmpty() || ventanaPrincipal.getTxtMarcaVehiculo().getText().isEmpty()
+                || ventanaPrincipal.getTxtModeloVehiculo().getText().isEmpty()
+                || ventanaPrincipal.getTxtAnioVehiculo().getText().isEmpty() || ventanaPrincipal.getTxtDetalles().getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de Agregar ");
+            return;
+        }
+        
+        //PARA NO DUPLICAR REGISTRO 
+        //compara las cedulas para no duplicar registros
+        String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
+
+        //consulta la cedula si esta registrada la pasa por parametros cedulaIngresada
+        boolean cedulaRegistrada = clienteDAO.clienteExistente(cedulaIngresada);
+        //recibe tru o false de metodo clienteExistente() 
+        if (cedulaRegistrada) {
+            JOptionPane.showMessageDialog(null, "Usuario ya registrado");
+            return;
+        }
+
         //OBTENER DATOS DEL FORMULARIO
         Cliente cliente = new Cliente(
                 //.getTxtaccede al campo de txto JtextField del formulario
@@ -108,6 +130,29 @@ public class ControladorCliente {
 
     //editarCliente() -> update de SQL
     private void editarCliente() {
+        //validaciones para que los campos no esten  vacios
+        if (ventanaPrincipal.getTxtNombre().getText().isEmpty() || ventanaPrincipal.getTxtApellido().getText().isEmpty()
+                || ventanaPrincipal.getTxtCedula().getText().isEmpty() || ventanaPrincipal.getTxtCelular().getText().isEmpty()
+                || ventanaPrincipal.getTxtDireccion().getText().isEmpty() || ventanaPrincipal.getTxtMarcaVehiculo().getText().isEmpty()
+                || ventanaPrincipal.getTxtModeloVehiculo().getText().isEmpty()
+                || ventanaPrincipal.getTxtAnioVehiculo().getText().isEmpty() || ventanaPrincipal.getTxtDetalles().getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se han realizado modificaciones para actualizar ");
+            return;
+        }
+        
+        //PARA NO DUPLICAR REGISTRO
+        //compara las cedulas para no duplicar registros
+        String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
+
+        //consulta la cedula si esta registrada la pasa por parametros cedulaIngresada
+        boolean cedulaRegistrada = clienteDAO.clienteExistente(cedulaIngresada);
+        
+        //recibe tru o false de metodo clienteExistente() 
+        if (cedulaRegistrada) {
+            JOptionPane.showMessageDialog(null, "Usuario ya registrado ");
+            return;
+        }
+
         Cliente cliente = new Cliente(
                 //.getTxtaccede al campo de txto JtextField del formulario
                 ventanaPrincipal.getTxtNombre().getText(),
@@ -128,6 +173,7 @@ public class ControladorCliente {
         ventanaPrincipal.limpiarPantalla();
     }
     //eliminarCliente()-> delete de SQL
+
     private void eliminarCliente() {
         int fila = ventanaPrincipal.getjTDatosClientes().getSelectedRow();
         if (fila == -1) {
@@ -152,6 +198,7 @@ public class ControladorCliente {
         ventanaPrincipal.getjTDatosClientes();
 
     }
+
     //Seleccionamos cleinte de la row
     public void seleccionarCliente() {
         int fila = ventanaPrincipal.getjTDatosClientes().getSelectedRow();
@@ -188,6 +235,5 @@ public class ControladorCliente {
             // ventanaPrincipal.setIdClienteSeleccionado(idClienteSeleccionado);
         }
     }
-    
-    
+
 }

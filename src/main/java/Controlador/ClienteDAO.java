@@ -68,7 +68,7 @@ public class ClienteDAO {
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try {
-          
+
             PreparedStatement preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             preparedStatement.setString(1, cliente.getNombre());
             preparedStatement.setString(2, cliente.getApellido());
@@ -96,7 +96,7 @@ public class ClienteDAO {
         Cliente cliente = null;
 
         try {
-            
+
             //Statement ejecuta consultas SQL (SELECT INSERT UPDATE DELETE)
             PreparedStatement preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
             preparedStatement.setString(1, cedula);
@@ -218,6 +218,35 @@ public class ClienteDAO {
                 System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
+    }
+
+    //METODO BUSCAR POR CEDULA EXISTENTE  / SELECT COUNT(*) FROM WHERE
+    //recibe por parametro cedulaIngresada
+    public boolean clienteExistente(String cedula) {
+        //consulta SQL cuemta cuantas veces aparece la cedula en la DB
+        String tabla = "SELECT COUNT(*) FROM clientes WHERE cedula = ?";
+
+        try {
+
+            //Statement ejecuta consultas SQL (SELECT INSERT UPDATE DELETE)
+            PreparedStatement preparedStatement = conexionDB.getConnection().prepareStatement(tabla);
+            //establece el valor de cedula en la consulta
+            preparedStatement.setString(1, cedula);
+
+            //ejecuta la consulta u obtiene el resultado
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            //si hay resultados, se comprueba si COUNT(*) es >0
+            if(resultSet.next()){
+                //retorna tru si hay al menos un registro con la cedual ingresada
+                return resultSet.getInt(1)>0;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        //Si no hay coincie¿dencias en las cedulas u ocurre un error, retorna False
+        return false;
     }
 
 }
