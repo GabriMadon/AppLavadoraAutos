@@ -94,7 +94,7 @@ public class ControladorCliente {
         
         //PARA NO DUPLICAR REGISTRO 
         //compara las cedulas para no duplicar registros
-        String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
+       /* String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
 
         //consulta la cedula si esta registrada la pasa por parametros cedulaIngresada
         boolean cedulaRegistrada = clienteDAO.clienteExistente(cedulaIngresada);
@@ -102,7 +102,7 @@ public class ControladorCliente {
         if (cedulaRegistrada) {
             JOptionPane.showMessageDialog(null, "Usuario ya registrado");
             return;
-        }
+        }*/
 
         //OBTENER DATOS DEL FORMULARIO
         Cliente cliente = new Cliente(
@@ -142,7 +142,7 @@ public class ControladorCliente {
         
         //PARA NO DUPLICAR REGISTRO
         //compara las cedulas para no duplicar registros
-        String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
+        /*String cedulaIngresada = ventanaPrincipal.getTxtCedula().getText();
 
         //consulta la cedula si esta registrada la pasa por parametros cedulaIngresada
         boolean cedulaRegistrada = clienteDAO.clienteExistente(cedulaIngresada);
@@ -151,7 +151,7 @@ public class ControladorCliente {
         if (cedulaRegistrada) {
             JOptionPane.showMessageDialog(null, "Usuario ya registrado ");
             return;
-        }
+        }*/
 
         Cliente cliente = new Cliente(
                 //.getTxtaccede al campo de txto JtextField del formulario
